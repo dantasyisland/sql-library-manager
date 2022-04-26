@@ -14,4 +14,12 @@ router.get("/", function (req, res, next) {
   })();
 });
 
+// Route for testing error
+router.get("/error", function (req, res, next) {
+  const err = new Error();
+  err.status = 404;
+  err.message = "Oops! Page not found!";
+  next(err);
+});
+
 module.exports = router;
