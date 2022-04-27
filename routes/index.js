@@ -6,7 +6,7 @@ var router = express.Router();
 // Remember every route takes a call back function
 
 router.get("/", (req, res, next) => {
-  res.redirect("/book");
+  res.redirect("/books");
 });
 
 // Route for testing error

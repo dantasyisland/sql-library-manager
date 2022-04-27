@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  form(action="/books/" + book.id,method="post")
+    p
+      label(for="title") Title:
+      input(type="text", name="title" value=book.title id="title")
+    p
+      label(for="author") Author:
+      input(type="text", name="author" value=book.author id="author")
+    p
+      label(for="genre") Genre:
+      input(type="text", name="genre" value=book.genre id="genre")
+    p
+      label(for="year") Year
+      input(type="text", name="year" value=book.year id="year")
+    p
+      input(type="submit", value="Update Book")
+    p
+      a.button(href="/books") Cancel
+
+  form(action="/books/delete/" + book.id, method="post", onsubmit="return confirm('Do you really want to delete this book?')")
+    p
+      input(type="submit", value="Delete Book")

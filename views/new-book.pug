@@ -1,9 +1,8 @@
 extends layout
 
 block content
-  h2= title
-
-  form(action="/new",method="post")
+  h1= title
+  form(action="/books/new",method="post")
     p
       label(for="title") Title:
       input(type="text", name="title" value=book.title id="title")
@@ -19,4 +18,4 @@ block content
     p
       input(type="submit", value="Create New Book")
     p
-      a.button(href="all_books.html") Cancel
+      a.button(href="/books") Cancel
