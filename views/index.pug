@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1 #{title}
+    p
+      a.button(href="new_book.html") Create New Book
+    table
+      thead
+        th Title
+        th Author
+        th Genre
+        th Year
+      //- Loop In here
+      tbody
+        each book in books
+          tr
+            td
+              a(href="books/" + book.id) #{book.title}
+            td #{book.author}
+            td #{book.genre}
+            td #{book.year}
