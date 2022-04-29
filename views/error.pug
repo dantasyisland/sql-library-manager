@@ -1,9 +1,2 @@
-extends layout
-
-block content
-  if(errors)
-    h2.errors OOPS
-    ul.errors
-      each error in errors
-        li
-          =error.message
+h1 #{err.name}
+h1 #{err.status}
