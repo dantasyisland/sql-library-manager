@@ -27,6 +27,13 @@ router.get(
   })
 );
 
+// Takes query params
+router.get("/search", (req, res) => {
+  console.log(req.query);
+  console.log(req.query.name);
+  res.send("hey");
+});
+
 // New Books
 
 router.get("/new", (req, res) => {
@@ -110,6 +117,8 @@ router.post(
     }
   })
 );
+
+// Delete Book
 
 router.post(
   "/delete/:id",

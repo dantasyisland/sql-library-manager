@@ -1,0 +1,11 @@
+form.create-list(action='/books/search', method='get')
+  fieldset
+    legend Add your item
+    label(for='item-name') Item:
+    input#name(type='text', name='name', required='')
+    br
+    label(for='item-name') Quantity:
+    input#quantity(type='text', name='quantity', required='')
+    br
+    br
+    input(type='submit')
