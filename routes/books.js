@@ -28,11 +28,16 @@ router.get(
 );
 
 // Takes query params
-router.get("/search", (req, res) => {
-  console.log(req.query);
-  console.log(req.query.name);
-  res.send("hey");
-});
+router.get(
+  "/search",
+  asyncHandler(async (req, res) => {
+    console.log(req.query.genre);
+    const books = await Book.findAll({
+      attributes: [`${req.query.genre}`],
+    });
+    res.send("hey");
+  })
+);
 
 // New Books
 

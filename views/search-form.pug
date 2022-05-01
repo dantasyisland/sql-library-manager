@@ -1,11 +1,20 @@
 form.create-list(action='/books/search', method='get')
   fieldset
-    legend Add your item
-    label(for='item-name') Item:
-    input#name(type='text', name='name', required='')
+    legend Search
+    label(for='title') Title
+    input#name(type='text', name='title')
     br
-    label(for='item-name') Quantity:
-    input#quantity(type='text', name='quantity', required='')
+    br
+    label(for='author') Author
+    input#name(type='text', name='author')
+    br
+    br
+    label(for='genre') Genre
+    input#name(type='text', name='genre')
+    br
+    br
+    label(for='Year') Year
+    input#name(type='text', name='Year')
     br
     br
     input(type='submit')
