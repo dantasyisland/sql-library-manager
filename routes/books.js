@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { Book } = require("../models");
+const { Op } = require("sequelize");
 
 //cb is callback - when working with sequelize
 function asyncHandler(cb) {
@@ -28,14 +29,24 @@ router.get(
 );
 
 // Takes query params
+// NEED A SEARCH RESULT PAGE (render back to books)
 router.get(
   "/search",
   asyncHandler(async (req, res) => {
     console.log(req.query.genre);
+    // that query is wrong - select fantasy from Books AS Book
     const books = await Book.findAll({
-      attributes: [`${req.query.genre}`],
+      // attributes: [`${req.query.genre}`],
+      [Op.or]: {
+        where: {
+          genre: `${req.query.genre}`,
+        },
+        where: {
+          title: `${req.query.title}`,
+        },
+      },
     });
-    res.send("hey");
+    res.render("index", { books, title: "Search" });
   })
 );
 
