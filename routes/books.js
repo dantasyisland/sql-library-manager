@@ -33,50 +33,31 @@ router.get(
 router.get(
   "/search",
   asyncHandler(async (req, res) => {
-    // let queryArray = Object.entries(req.query);
+    let queryArray = Object.entries(req.query);
 
-    // // console.log(req.query);
+    // console.log(req.query);
 
-    // let thisQuery = queryArray.filter(([key, value]) => value !== "");
-    // // console.log(thisQuery);
-    // const justSearch = Object.fromEntries(thisQuery);
-    // console.dir(justSearch);
-    // // that query is wrong - select fantasy from Books AS Book
+    let thisQuery = queryArray.filter(([key, value]) => value !== "");
+    // console.log(thisQuery);
+    const justSearch = Object.fromEntries(thisQuery);
+    console.dir(justSearch);
+    // that query is wrong - select fantasy from Books AS Book
 
-    // // Build an array from the object - key value array
-    // // Filter out empty strings
-    // // Rebuild object
-    // // From that object create queries
+    // Build an array from the object - key value array
+    // Filter out empty strings
+    // Rebuild object
+    // From that object create queries
 
-    // // where { genre} <~~~ need value only now
-    // for (query in justSearch) {
-    //   console.log(`${query} and its value: ${justSearch[query]}`);
-    // }
-
-    // for (query in justSearch) {
-    // }
+    // where { genre} <~~~ need value only now
+    for (query in justSearch) {
+      console.log(`${query} and its value: ${justSearch[query]}`);
+    }
 
     const books = await Book.findAll({
+      where: {
+        [Op.and]: [justSearch],
+      },
       // attributes: [`${req.query.genre}`],
-
-      where: {
-        [Op.or]: [
-          {
-            genre: `${req.query.genre}`,
-          },
-          { title: `${req.query.title}` },
-          {
-            // also a reset button
-            year: `${req.query.year}`,
-          },
-          {
-            author: `${req.query.author}`,
-          },
-        ],
-      },
-      where: {
-        title: `${req.query.title}`,
-      },
     });
 
     res.render("index", { books, title: "Search" });
