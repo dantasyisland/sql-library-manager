@@ -37,6 +37,7 @@ router.get(
     // that query is wrong - select fantasy from Books AS Book
     const books = await Book.findAll({
       // attributes: [`${req.query.genre}`],
+<<<<<<< HEAD
 
       where: {
         [Op.or]: [
@@ -51,6 +52,14 @@ router.get(
           {
             author: `${req.query.author}`,
           },
+=======
+      where: {
+        [Op.or]: [
+          { genre: `${req.query.genre}` },
+          { title: `${req.query.title}` },
+          { author: `${req.query.author}` },
+          { year: `${req.query.year}` },
+>>>>>>> 9eaec047b98ed392fe03fe2d34398e4a7a28d9ae
         ],
       },
       // where: {
