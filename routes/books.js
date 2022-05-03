@@ -37,15 +37,27 @@ router.get(
     // that query is wrong - select fantasy from Books AS Book
     const books = await Book.findAll({
       // attributes: [`${req.query.genre}`],
-      [Op.or]: {
-        where: {
-          genre: `${req.query.genre}`,
-        },
-        where: {
-          title: `${req.query.title}`,
-        },
+
+      where: {
+        [Op.or]: [
+          {
+            genre: `${req.query.genre}`,
+          },
+          { title: `${req.query.title}` },
+          {
+            // also a reset button
+            year: `${req.query.year}`,
+          },
+          {
+            author: `${req.query.author}`,
+          },
+        ],
       },
+      // where: {
+      //   title: `${req.query.title}`,
+      // },
     });
+    console.log("Title: " + req.query.title + "YEAH");
     res.render("index", { books, title: "Search" });
   })
 );
