@@ -33,11 +33,31 @@ router.get(
 router.get(
   "/search",
   asyncHandler(async (req, res) => {
-    console.log(req.query.genre);
-    // that query is wrong - select fantasy from Books AS Book
+    // let queryArray = Object.entries(req.query);
+
+    // // console.log(req.query);
+
+    // let thisQuery = queryArray.filter(([key, value]) => value !== "");
+    // // console.log(thisQuery);
+    // const justSearch = Object.fromEntries(thisQuery);
+    // console.dir(justSearch);
+    // // that query is wrong - select fantasy from Books AS Book
+
+    // // Build an array from the object - key value array
+    // // Filter out empty strings
+    // // Rebuild object
+    // // From that object create queries
+
+    // // where { genre} <~~~ need value only now
+    // for (query in justSearch) {
+    //   console.log(`${query} and its value: ${justSearch[query]}`);
+    // }
+
+    // for (query in justSearch) {
+    // }
+
     const books = await Book.findAll({
       // attributes: [`${req.query.genre}`],
-<<<<<<< HEAD
 
       where: {
         [Op.or]: [
@@ -52,21 +72,13 @@ router.get(
           {
             author: `${req.query.author}`,
           },
-=======
-      where: {
-        [Op.or]: [
-          { genre: `${req.query.genre}` },
-          { title: `${req.query.title}` },
-          { author: `${req.query.author}` },
-          { year: `${req.query.year}` },
->>>>>>> 9eaec047b98ed392fe03fe2d34398e4a7a28d9ae
         ],
       },
-      // where: {
-      //   title: `${req.query.title}`,
-      // },
+      where: {
+        title: `${req.query.title}`,
+      },
     });
-    console.log("Title: " + req.query.title + "YEAH");
+
     res.render("index", { books, title: "Search" });
   })
 );
