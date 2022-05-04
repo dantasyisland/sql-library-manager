@@ -57,11 +57,7 @@ router.get(
       where: {
         [Op.and]: [justSearch],
       },
-<<<<<<< HEAD
       limit: 2,
-=======
-      // attributes: [`${req.query.genre}`],
->>>>>>> 2d658ef7dc1e4995165d658781fc20997c177fd2
     });
 
     res.render("index", { books, title: "Search" });
