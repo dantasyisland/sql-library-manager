@@ -45,6 +45,7 @@ router.get(
           { year: `${req.query.year}` },
         ],
       },
+      limit: 2,
     });
     res.render("index", { books, title: "Search" });
   })
