@@ -33,20 +33,37 @@ router.get(
 router.get(
   "/search",
   asyncHandler(async (req, res) => {
-    console.log(req.query.genre);
+    let queryArray = Object.entries(req.query);
+
+    // console.log(req.query);
+
+    let thisQuery = queryArray.filter(([key, value]) => value !== "");
+    // console.log(thisQuery);
+    const justSearch = Object.fromEntries(thisQuery);
+    console.dir(justSearch);
     // that query is wrong - select fantasy from Books AS Book
+
+    // Build an array from the object - key value array
+    // Filter out empty strings
+    // Rebuild object
+    // From that object create queries
+
+    // where { genre} <~~~ need value only now
+    for (query in justSearch) {
+      console.log(`${query} and its value: ${justSearch[query]}`);
+    }
+
     const books = await Book.findAll({
-      // attributes: [`${req.query.genre}`],
       where: {
-        [Op.or]: [
-          { genre: `${req.query.genre}` },
-          { title: `${req.query.title}` },
-          { author: `${req.query.author}` },
-          { year: `${req.query.year}` },
-        ],
+        [Op.and]: [justSearch],
       },
+<<<<<<< HEAD
       limit: 2,
+=======
+      // attributes: [`${req.query.genre}`],
+>>>>>>> 2d658ef7dc1e4995165d658781fc20997c177fd2
     });
+
     res.render("index", { books, title: "Search" });
   })
 );
