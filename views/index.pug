@@ -4,7 +4,7 @@ block content
     h1 #{title}
     include search-form
     p
-      a.button(href="books/new") Create New Book
+      a.button(href="/books/new") Create New Book
     table
       thead
         th Title
@@ -20,3 +20,6 @@ block content
             td #{book.author}
             td #{book.genre}
             td #{book.year}
+    - for (let i = 0; i< pages; i++)
+      a(href=`/books?page=${i}`)
+        button.page-button #{i+1}

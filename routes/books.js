@@ -9,6 +9,7 @@ function asyncHandler(cb) {
   return async (req, res, next) => {
     try {
       await cb(req, res, next);
+      throw "BLAG";
     } catch (error) {
       // Forward error to the global error handler
       next(error);
@@ -20,35 +21,36 @@ function asyncHandler(cb) {
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const books = await Book.findAll({ order: [["createdAt", "DESC"]] }); // order is array of arrays
+    // Pagination Logic
+    const numberOfbooks = 3;
+    const pageQuery = Number.parseInt(req.query.page);
+    let page = 0;
+    if (!Number.isNaN(pageQuery) && pageQuery > 0) {
+      page = pageQuery;
+      console.log("hi");
+    }
+
+    const books = await Book.findAndCountAll({
+      order: [["createdAt", "DESC"]],
+      limit: numberOfbooks,
+      offset: page * numberOfbooks,
+    }); // order is array of arrays
     res.render("index", {
-      books,
+      books: books.rows,
       title: "BOOKS",
+      pages: Math.ceil(books.count / numberOfbooks),
     });
   })
 );
 
-// Takes query params
-// NEED A SEARCH RESULT PAGE (render back to books)
 router.get(
   "/search",
   asyncHandler(async (req, res) => {
     let queryArray = Object.entries(req.query);
-
-    // console.log(req.query);
-
     let thisQuery = queryArray.filter(([key, value]) => value !== "");
-    // console.log(thisQuery);
     const justSearch = Object.fromEntries(thisQuery);
     console.dir(justSearch);
-    // that query is wrong - select fantasy from Books AS Book
 
-    // Build an array from the object - key value array
-    // Filter out empty strings
-    // Rebuild object
-    // From that object create queries
-
-    // where { genre} <~~~ need value only now
     for (query in justSearch) {
       console.log(`${query} and its value: ${justSearch[query]}`);
     }
@@ -57,14 +59,12 @@ router.get(
       where: {
         [Op.and]: [justSearch],
       },
-      limit: 2,
     });
-
     res.render("index", { books, title: "Search" });
   })
 );
 
-// New Books
+// New Book Route
 
 router.get("/new", (req, res) => {
   res.render("new-book", {
@@ -73,7 +73,7 @@ router.get("/new", (req, res) => {
   });
 });
 
-// Create New Book
+// CREATE New Book
 
 router.post(
   "/new",
@@ -148,7 +148,7 @@ router.post(
   })
 );
 
-// Delete Book
+// DELETE Book
 
 router.post(
   "/delete/:id",
