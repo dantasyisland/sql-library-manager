@@ -1,8 +1,8 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
 // Database File
 const db = require("./models/index");
@@ -16,6 +16,7 @@ const db = require("./models/index");
   }
 })();
 
+// Routers
 var indexRouter = require("./routes/index");
 var booksRouter = require("./routes/books");
 
@@ -31,12 +32,16 @@ app.use(express.json());
 // For Query Params
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// static
 app.use(express.static(path.join(__dirname, "public")));
 
+//Routes
 app.use("/", indexRouter);
 app.use("/books", booksRouter);
 
 // catch 404 and forward to error handler
+// uses createError()
 app.use(function (req, res, next) {
   next(createError(404));
 });

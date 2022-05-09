@@ -4,12 +4,12 @@ const router = express.Router();
 const { Book } = require("../models");
 const { Op } = require("sequelize");
 
-//cb is callback - when working with sequelize
+/* Handler function to wrap each route. */
+// CB for Callback
 function asyncHandler(cb) {
   return async (req, res, next) => {
     try {
       await cb(req, res, next);
-      throw "BLAG";
     } catch (error) {
       // Forward error to the global error handler
       next(error);
