@@ -1,2 +1,10 @@
-h1 #{err.name}
-h1 #{err.status}
+html
+  head
+    title Page Not Found
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    h1 #{err.message}
+    h1 #{err.status}
+     p
+      a(href='/books').button Home

@@ -9,11 +9,10 @@ router.get("/", (req, res, next) => {
   res.redirect("/books");
 });
 
-// Route for testing error
+// Route for testing 500 error
 router.get("/error", function (req, res, next) {
   const err = new Error();
-  err.status = 404;
-  err.message = "Oops! Page not found!";
+  err.status = 500;
   next(err);
 });
 

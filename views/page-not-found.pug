@@ -1,0 +1,12 @@
+html
+  head
+    title Page Not Found
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1 #{err.status} Page Not Found
+
+    p #{err.message}
+    br
+    p
+      a(href='/books').button Home
+
