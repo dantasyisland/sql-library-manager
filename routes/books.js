@@ -46,18 +46,35 @@ router.get(
 router.get(
   "/search",
   asyncHandler(async (req, res) => {
-    let queryArray = Object.entries(req.query);
-    let thisQuery = queryArray.filter(([key, value]) => value !== "");
-    const justSearchTerms = Object.fromEntries(thisQuery);
-
-    const books = await Book.findAll({
+    const books = await Student.findAll({
       where: {
-        [Op.and]: [justSearchTerms],
+        [Op.or]: {
+          title: { [Op.like]: "%" + `${req.query.title}` },
+          author: { [Op.like]: "%" + req.query.author + "%" },
+          genre: { [Op.like]: `${req.query.genre} },
+          year: { [Op.like]: "%" + req.query.year + "%" },
+        },
       },
     });
     res.render("index", { books, title: "Search" });
   })
 );
+
+// router.get(
+//   "/search",
+//   asyncHandler(async (req, res) => {
+//     let queryArray = Object.entries(req.query);
+//     let thisQuery = queryArray.filter(([key, value]) => value !== "");
+//     const justSearchTerms = Object.fromEntries(thisQuery);
+
+//     const books = await Book.findAll({
+//       where: {
+//         [Op.and]: [justSearchTerms],
+//       },
+//     });
+//     res.render("index", { books, title: "Search" });
+//   })
+// );
 
 router.get(
   "/test",
