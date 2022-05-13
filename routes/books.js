@@ -43,6 +43,33 @@ router.get(
   })
 );
 
+router.get(
+  "/search",
+  asyncHandler(async (req, res) => {
+    console.log(req.query);
+    const queryArray = Object.entries(req.query);
+    console.log(queryArray);
+    const searchTermsArray = queryArray.filter(([key, value]) => value != "");
+    console.log(searchTermsArray);
+    const searchParamObj = Object.fromEntries(searchTermsArray);
+    console.log(searchParamObj);
+
+    for (term in searchParamObj) {
+      searchParamObj[term] = { [Op.like]: `%${searchParamObj[term]}%` };
+    }
+    console.dir(searchParamObj);
+
+    const searchThis = {
+      where: {
+        [Op.or]: searchParamObj,
+      },
+    };
+
+    const books = await Book.findAll(searchThis);
+    res.render("index", { books, title: "Search" });
+  })
+);
+
 // router.get(
 //   "/search2",
 //   asyncHandler(async (req, res) => {
