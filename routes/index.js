@@ -3,7 +3,6 @@ var router = express.Router();
 
 /* GET home page. */
 // Redirect to Books Route
-// Remember every route takes a call back function
 
 router.get("/", (req, res, next) => {
   res.redirect("/books");

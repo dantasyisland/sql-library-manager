@@ -5,8 +5,9 @@ const createError = require("http-errors");
 
 const { Book } = require("../models");
 const { Op } = require("sequelize");
+const booksController = require("../controllers/booksController");
 
-/* Handler function to wrap each route. */
+/* Handler function for wrapping try catch block */
 function asyncHandler(cb) {
   return async (req, res, next) => {
     try {
@@ -18,30 +19,7 @@ function asyncHandler(cb) {
 }
 
 // Books Route
-router.get(
-  "/",
-  asyncHandler(async (req, res) => {
-    // Pagination Logic
-    const numberOfbooks = 5;
-    const pageQuery = Number.parseInt(req.query.page);
-    let page = 0;
-    if (!Number.isNaN(pageQuery) && pageQuery > 0) {
-      page = pageQuery;
-    }
-
-    const books = await Book.findAndCountAll({
-      order: [["createdAt", "DESC"]],
-      limit: numberOfbooks,
-      offset: page * numberOfbooks,
-    });
-
-    res.render("index", {
-      books: books.rows,
-      title: "BOOKS",
-      pages: Math.ceil(books.count / numberOfbooks),
-    });
-  })
-);
+router.get("/", booksController.get);
 
 router.get(
   "/search",
