@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const createError = require("http-errors");
 
 const { Book } = require("../models");
 const { Op } = require("sequelize");
@@ -8,10 +7,6 @@ const booksController = require("../controllers/booksController");
 
 // GET All Books Route
 router.get("/", booksController.getAllBooks);
-
-// GET individiual book
-router.get("/:id", booksController.getIndividualBook);
-
 // Search Books Route
 router.get("/search", booksController.searchBooks);
 
@@ -25,6 +20,9 @@ router.get("/new", (req, res) => {
 
 // CREATE New Book Route
 router.post("/new", booksController.createBook);
+
+// GET individiual book
+router.get("/:id", booksController.getIndividualBook);
 
 // UPDATE Book
 router.post("/:id", booksController.updateBook);
