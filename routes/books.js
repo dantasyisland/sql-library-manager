@@ -7,8 +7,8 @@ const booksController = require("../controllers/booksController");
 
 // GET All Books Route
 router.get("/", booksController.getAllBooks);
-
 // Search Books Route
+
 router.get("/search", booksController.searchBooks);
 
 // New Book Route
@@ -29,6 +29,6 @@ router.get("/:id", booksController.getIndividualBook);
 router.post("/:id", booksController.updateBook);
 
 // DELETE Book
-router.post("/delete/:id", booksController.deleteBook);
+router.post("/:id/delete", booksController.deleteBook);
 
 module.exports = router;
