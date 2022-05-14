@@ -1,7 +1,6 @@
 const { Book } = require("../models/");
 const { Op } = require("sequelize");
 const createError = require("http-errors");
-const res = require("express/lib/response");
 
 /* Handler function for wrapping try catch block */
 function asyncHandler(cb) {
@@ -45,7 +44,7 @@ const getIndividualBook = asyncHandler(async (req, res, next) => {
       title: `Update Book: ${book.title}`,
     });
   } else {
-    next(createError(404, "This book does not exist"));
+    next(createError(404, "Sorry. This book does not exist 😭"));
   }
 });
 

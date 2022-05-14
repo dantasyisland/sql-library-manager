@@ -34,7 +34,8 @@ app.use(function (req, res, next) {
 // Error handler
 app.use(function (err, req, res, next) {
   if (err.status == 500) {
-    err.message = "So Sorry! Something went wrong on the server";
+    err.message =
+      "🦄 Something went wrong on the server. \nUnicorns are working tirelessly on it 🦄";
     res.render("error", { err });
   } else if (err.status == 404) {
     res.render("page-not-found", { err });
