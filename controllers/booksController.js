@@ -50,18 +50,14 @@ const getIndividualBook = asyncHandler(async (req, res, next) => {
 });
 
 const searchBooks = asyncHandler(async (req, res) => {
-  console.log(req.query);
-  const queryArray = Object.entries(req.query);
-  console.log(queryArray);
-  const searchTermsArray = queryArray.filter(([key, value]) => value != "");
-  console.log(searchTermsArray);
-  const searchParamObj = Object.fromEntries(searchTermsArray);
-  console.log(searchParamObj);
+  const queryArray = Object.entries(req.query).filter(
+    ([key, value]) => value != ""
+  );
+  const searchParamObj = Object.fromEntries(queryArray);
 
   for (term in searchParamObj) {
     searchParamObj[term] = { [Op.like]: `%${searchParamObj[term]}%` };
   }
-  console.dir(searchParamObj);
 
   const searchThis = {
     where: {

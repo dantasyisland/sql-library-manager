@@ -7,6 +7,7 @@ const booksController = require("../controllers/booksController");
 
 // GET All Books Route
 router.get("/", booksController.getAllBooks);
+
 // Search Books Route
 router.get("/search", booksController.searchBooks);
 
